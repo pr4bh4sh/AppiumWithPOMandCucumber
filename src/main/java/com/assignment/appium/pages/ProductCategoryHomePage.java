@@ -1,6 +1,6 @@
 package com.assignment.appium.pages;
 
-import com.assignment.appium.enums.Filters;
+import com.assignment.appium.commons.Filters;
 
 import org.openqa.selenium.support.PageFactory;
 

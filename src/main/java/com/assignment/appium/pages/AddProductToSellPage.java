@@ -1,6 +1,6 @@
 package com.assignment.appium.pages;
 
-import com.assignment.appium.enums.ProductCondition;
+import com.assignment.appium.commons.ProductCondition;
 
 import org.openqa.selenium.support.PageFactory;
 

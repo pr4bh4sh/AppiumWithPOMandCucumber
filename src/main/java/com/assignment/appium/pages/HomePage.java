@@ -1,8 +1,11 @@
 package com.assignment.appium.pages;
 
+import com.assignment.appium.commons.ScrollDirection;
+
 import org.openqa.selenium.support.PageFactory;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -38,7 +41,9 @@ public class HomePage extends BasePage {
     }
 
     public ProductCategoryHomePage openProductCategory(String category) {
-        scrollToText(category).click();
+//        scrollToText(category).click();
+        scrollWithTouchAction(ScrollDirection.DOWN, 3);
+        driver.findElement(MobileBy.AndroidUIAutomator("new UiSelector().text(\"" + category + "\")")).click();
         return new ProductCategoryHomePage(driver);
     }
 

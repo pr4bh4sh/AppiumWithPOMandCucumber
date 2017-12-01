@@ -7,7 +7,7 @@ import io.appium.java_client.events.api.general.ElementEventListener;
 
 public class ElementListener implements ElementEventListener {
 
-    //TODO log on events
+    //TODO log4j logs on events
     @Override
     public void beforeClickOn(WebElement element, WebDriver driver) {
     }

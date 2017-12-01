@@ -1,7 +1,7 @@
 package com.assignment.appium;
 
-import com.assignment.appium.enums.Filters;
-import com.assignment.appium.enums.ProductCondition;
+import com.assignment.appium.commons.Filters;
+import com.assignment.appium.commons.ProductCondition;
 import com.assignment.appium.factory.DriverFactory;
 import com.assignment.appium.listners.ExtentTestListener;
 import com.assignment.appium.pages.AddProductToSellPage;
