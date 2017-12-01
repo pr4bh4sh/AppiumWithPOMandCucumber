@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AppiumWithPOM.iml" filepath="$PROJECT_DIR$/AppiumWithPOM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AppiumWithPOM_main.iml" filepath="$PROJECT_DIR$/.idea/modules/AppiumWithPOM_main.iml" group="AppiumWithPOM" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AppiumWithPOM_test.iml" filepath="$PROJECT_DIR$/.idea/modules/AppiumWithPOM_test.iml" group="AppiumWithPOM" />
+    </modules>
+  </component>
+</project>
