@@ -13,7 +13,7 @@ import org.testng.ITestResult;
  */
 public class ExtentTestListener implements ITestListener {
 
-  private static ExtentReports extent = ExtentManager.createInstance("report/extent.html");
+  private static ExtentReports extent = ExtentManager.getInstance();
   private static ExtentTest parent;
 
   public static void logStep(String log) {

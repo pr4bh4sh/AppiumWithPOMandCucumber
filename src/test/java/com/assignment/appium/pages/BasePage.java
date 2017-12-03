@@ -12,8 +12,6 @@ import org.openqa.selenium.support.PageFactory;
 public class BasePage {
 
   public int height, width;
-  //    @AndroidFindBy(uiAutomator = "Navigate up") //TODO update uiautomation script
-  //    MobileElement backButton;
   AppiumDriver<MobileElement> driver;
 
   public BasePage(AppiumDriver<MobileElement> driver) {
@@ -36,6 +34,11 @@ public class BasePage {
     return null;
   }
 
+  /**
+   * Scroll to text with UiAutomator inside an element bounds
+   *
+   * @param text - exact text
+   */
   public MobileElement scrollInsideElementByText(MobileElement element, String text) {
     String locator =
         "new UiScrollable(new UiSelector().scrollable(true)).setMaxSearchSwipes(3).scrollIntoView(new UiSelector().text(\""
@@ -43,6 +46,11 @@ public class BasePage {
     return element.findElement(MobileBy.AndroidUIAutomator(locator));
   }
 
+  /**
+   * Scroll to text with UiAutomator
+   *
+   * @param text - exact text
+   */
   public MobileElement scrollToText(String text) {
     String locator =
         "new UiScrollable(new UiSelector().scrollable(true)).setMaxSearchSwipes(8).scrollIntoView(new UiSelector().text(\""
@@ -50,12 +58,15 @@ public class BasePage {
     return driver.findElement(MobileBy.AndroidUIAutomator(locator));
   }
 
+  /**
+   * Scroll to a direction
+   */
   public void scrollWithTouchAction(String direction, int times) {
     TouchAction touchAction = new TouchAction(driver);
     int startX = width / 2;
-    int startY = height / 2 - 100;
-    int endX = 0;
-    int endY = height - 200;
+    int startY = height - height / 3;
+    int endX = 0; // of which the startX will deviate not the actual co-ordinates
+    int endY = height - 300;
 
     for (int i = 0; i < times; i++) {
       if (direction.equals(ScrollDirection.DOWN)) {
@@ -63,6 +74,12 @@ public class BasePage {
       } else if (direction.equals(ScrollDirection.UP)) {
         touchAction.press(endX, endY).moveTo(startX, startY).perform();
       }
+      try {
+        Thread.sleep(200); //sleep between scroll
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+
     }
   }
 

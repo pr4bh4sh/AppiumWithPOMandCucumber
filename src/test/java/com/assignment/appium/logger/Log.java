@@ -6,7 +6,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 public class Log {
 
-  static Logger Log = Logger.getLogger(com.assignment.appium.logger.Log.class.getName());
+  static Logger Log = Logger.getLogger(Log.class.getName());
 
   /**
    * Info message

@@ -4,7 +4,7 @@
 
   <appender name="fileAppender" class="org.apache.log4j.FileAppender">
     <param name="Threshold" value="INFO"/>
-    <param name="File" value="Loginfo.log"/>
+    <param name="File" value="reports/Loginfo.log"/>
 
     <layout class="org.apache.log4j.PatternLayout">
       <param name="ConversionPattern" value="%d %-5p [%c{1}] %m %n"/>

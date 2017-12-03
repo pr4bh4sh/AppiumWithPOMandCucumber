@@ -5,7 +5,7 @@
   </listeners>
   <test name="Tests">
     <classes>
-      <class name="com.assignment.appium.ProductListingTest"/>
+      <class name="com.assignment.appium.test.ProductListingTest"/>
     </classes>
   </test>
 </suite>

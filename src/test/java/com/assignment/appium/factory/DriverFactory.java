@@ -28,13 +28,15 @@ public class DriverFactory {
       DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
       desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "5.1");
       desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android_device");
-//            desiredCapabilities.setCapability(MobileCapabilityType.APP, new File("").getAbsoluteFile() + File.separator + "app" + File.separator + "Carousell-test-engineering-app.apk");
+      desiredCapabilities.setCapability(MobileCapabilityType.APP,
+          new File("").getAbsoluteFile() + File.separator + "app" + File.separator
+              + "Carousell-test-engineering-app.apk");
       desiredCapabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY,
           "com.thecarousell.Carousell.activities.EntryActivity");
       desiredCapabilities
           .setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.thecarousell.Carousell");
       desiredCapabilities.setCapability(AndroidMobileCapabilityType.NO_SIGN, true);
-      desiredCapabilities.setCapability(MobileCapabilityType.NO_RESET, true);
+      desiredCapabilities.setCapability(MobileCapabilityType.NO_RESET, false);
 //            desiredCapabilities.setCapability(MobileCapabilityType.FULL_RESET, true);
       desiredCapabilities.setCapability("newCommandTimeout", 99999);
       desiredCapabilities.setCapability(AndroidMobileCapabilityType.UNICODE_KEYBOARD, true);
@@ -63,8 +65,8 @@ public class DriverFactory {
       File screenshot = appiumDriver.getScreenshotAs(OutputType.FILE);
       String path = "screenshots/" + UUID.randomUUID() + "" + ".png";
       System.out.println(path);
-      FileUtils.copyFile(screenshot, new File(System.getProperty("user.dir") + "/report/" + path));
-      return path;
+      FileUtils.copyFile(screenshot, new File(System.getProperty("user.dir") + "/reports/" + path));
+      return "../" + path;
     } catch (Exception e) {
       System.out.println("Screen shot failed");
       System.out.println(e.getMessage());

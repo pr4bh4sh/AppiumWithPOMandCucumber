@@ -24,11 +24,11 @@ public class ProductListSteps implements En {
 
   public ProductListSteps() {
     AppiumDriver appiumDriver = DriverFactory.getAndroidDriver();
-    Given("^I login with \"([^\"]*)\"$", (String with) -> {
+    Given("^I login using \"([^\"]*)\" as \"([^\"]*)\"$", (String with, String userName) -> {
       Log.INFO("Trying to login with " + with);
       switch (with) {
-        case "google plus":
-          homePage = new LoginPage(appiumDriver).loginWithGoogle(with);
+        case "google":
+          homePage = new LoginPage(appiumDriver).loginWithGoogle(userName);
           break;
         default:
           System.out.println("test");

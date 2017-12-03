@@ -11,13 +11,13 @@ public class ExtentManager {
 
   public static ExtentReports getInstance() {
     if (extent == null) {
-      createInstance("test-output/extent.html");
+      createInstance("reports/extent/extent.html");
     }
 
     return extent;
   }
 
-  public static ExtentReports createInstance(String fileName) {
+  private static ExtentReports createInstance(String fileName) {
     ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(fileName);
     htmlReporter.config().setTestViewChartLocation(ChartLocation.BOTTOM);
     htmlReporter.config().setChartVisibilityOnOpen(true);
