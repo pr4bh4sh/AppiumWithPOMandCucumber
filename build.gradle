@@ -11,23 +11,9 @@ compileJava {
 }
 
 sourceSets {
-    main {
-        java {
-            srcDirs = ['src/java']
-        }
-        resources {
-            srcDirs = ['src/resources']
-        }
-    }
-    sourceSets {
-        test {
-            java {
-                srcDirs = ['src/test/java']
-            }
-            resources {
-                srcDirs = ['src/test/resources']
-            }
-        }
+    test {
+        java.srcDirs = ['src/test/java']
+        resources.srcDirs = ['src/test/resources']
     }
 }
 
@@ -54,13 +40,26 @@ dependencies {
     compile('info.cukes:cucumber-testng:' + "$cukesVersion") {
         exclude group: "junit", module: "junit"
     }
-//    compile "com.beust:jcommander:1.69"
-
 }
 
 test {
-    dependsOn assemble, clean //, compileJava, compileTestJava
-    useTestNG()
+    dependsOn assemble, clean, compileJava, compileTestJava
+    useTestNG() {
+        suites "testsuite/testNG.xml"
+    }
+}
+
+task runTests(type: JavaExec, dependsOn: 'classes') {
+//    testReportDir = file("${reportsDir}/SuiteOne")
+//    testResultsDir = file("${buildDir}/test-results/SuiteOne")
+
+    main = 'org.testng.TestNG'
+    classpath = files("./src/test/resources",
+            project.sourceSets.main.compileClasspath,
+            project.sourceSets.test.compileClasspath,
+            project.sourceSets.main.runtimeClasspath,
+            project.sourceSets.test.runtimeClasspath)
+    args = ["-parallel", "methods", "-threadcount", "1", "-d", "./build/test-output", "./src/test/resources/testsuite/testNG.xml"]
 }
 
 configurations {
