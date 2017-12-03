@@ -21,6 +21,9 @@ public class DriverFactory {
 
   static private AppiumDriver appiumDriver;
 
+  /**
+   * @return - Returns driver instance
+   */
   public static AppiumDriver getAndroidDriver() {
     if (appiumDriver != null) {
       return appiumDriver;
@@ -59,6 +62,9 @@ public class DriverFactory {
     return null;
   }
 
+  /**
+   * @return - Returns relative path with result dir
+   */
   public static String getScreenShot() {
     try {
       System.out.println("Adding screen shot");
@@ -66,7 +72,7 @@ public class DriverFactory {
       String path = "screenshots/" + UUID.randomUUID() + "" + ".png";
       System.out.println(path);
       FileUtils.copyFile(screenshot, new File(System.getProperty("user.dir") + "/reports/" + path));
-      return "../" + path;
+      return path;
     } catch (Exception e) {
       System.out.println("Screen shot failed");
       System.out.println(e.getMessage());
@@ -74,7 +80,10 @@ public class DriverFactory {
     return null;
   }
 
-  public void quitDriver(AppiumDriver appiumDriver) {
+  /**
+   * Kills driver session
+   */
+  public static void quitDriver() {
     if (appiumDriver != null) {
       appiumDriver.quit();
     }

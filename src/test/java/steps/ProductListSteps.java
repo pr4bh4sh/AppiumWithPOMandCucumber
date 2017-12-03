@@ -1,4 +1,4 @@
-package stepdef;
+package steps;
 
 import com.assignment.appium.commons.Filters;
 import com.assignment.appium.commons.ProductCondition;
@@ -9,11 +9,16 @@ import com.assignment.appium.pages.HomePage;
 import com.assignment.appium.pages.LoginPage;
 import com.assignment.appium.pages.ProductCategoryHomePage;
 import cucumber.api.DataTable;
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java8.En;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import java.util.Map;
-import org.testng.Assert;
+import org.junit.Assert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.WebDriverException;
 
 
 public class ProductListSteps implements En {
@@ -23,7 +28,7 @@ public class ProductListSteps implements En {
   private AddProductToSellPage addProductToSellPage;
 
   public ProductListSteps() {
-    AppiumDriver appiumDriver = DriverFactory.getAndroidDriver();
+
     Given("^I login using \"([^\"]*)\" as \"([^\"]*)\"$", (String with, String userName) -> {
       Log.INFO("Trying to login with " + with);
       switch (with) {
@@ -72,4 +77,29 @@ public class ProductListSteps implements En {
 
 
   }
+
+  Scenario scenario;
+
+  @Before
+  public void before(Scenario scenario) {
+    this.scenario = scenario;
+    appiumDriver = DriverFactory.getAndroidDriver();
+    Log.INFO("Starting scenario " + scenario.getName());
+  }
+
+  @After
+  public void after(Scenario scenario) {
+    try {
+      if (scenario.isFailed()) {
+        // Take a screenshot...
+        byte[] screenshot = appiumDriver.getScreenshotAs(OutputType.BYTES);
+        scenario.embed(screenshot, "image/png"); // ... and embed it in the report.
+      }
+    } catch (WebDriverException e) {
+      e.printStackTrace();
+    }
+    Log.INFO("Scenario finished" + scenario.getName());
+    DriverFactory.quitDriver();
+  }
+
 }

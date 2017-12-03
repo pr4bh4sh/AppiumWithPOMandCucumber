@@ -45,6 +45,7 @@ public class AddProductToSellPage extends BasePage {
 
   @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Used\")")
   private MobileElement usedRadio;
+
   @AndroidFindBy(uiAutomator = "new UiSelector().text(\"List it!\")")
   private MobileElement listIt;
 
@@ -82,12 +83,14 @@ public class AddProductToSellPage extends BasePage {
         break;
       case USED:
         productConditionButton.click();
-        newRadio.click();
+        usedRadio.click();
         break;
       case NONE:
+        //Product condition is optional
         break;
     }
     if (details.length() > 0) {
+      //Product description is optional
       descriptionTextInput.click();
       descriptionTextInput.sendKeys(details);
     }

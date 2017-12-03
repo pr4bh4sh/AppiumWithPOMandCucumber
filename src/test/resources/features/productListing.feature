@@ -1,5 +1,4 @@
 Feature: Product Listing
-  @test
   Scenario: Listing a product by taking its picture
     Given I login using "google" as "Test Acct"
     And I want to sell a product
