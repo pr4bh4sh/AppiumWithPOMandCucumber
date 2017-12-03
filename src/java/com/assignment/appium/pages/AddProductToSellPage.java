@@ -76,11 +76,11 @@ public class AddProductToSellPage extends BasePage {
     textItemDetails.click();
     textTitleInput.sendKeys(name);
     switch (condition) {
-      case New:
+      case NEW:
         productConditionButton.click();
         newRadio.click();
         break;
-      case Used:
+      case USED:
         productConditionButton.click();
         newRadio.click();
         break;
@@ -94,8 +94,8 @@ public class AddProductToSellPage extends BasePage {
     submitButton.click();
   }
 
-  public void setPrice(double priceInSDG) {
-    priceInput.sendKeys(String.valueOf(priceInSDG));
+  public void setPrice(String priceInSDG) {
+    priceInput.sendKeys(priceInSDG);
   }
 
   public HomePage publishProduct() {

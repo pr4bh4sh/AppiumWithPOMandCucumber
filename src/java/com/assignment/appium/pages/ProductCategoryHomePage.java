@@ -6,31 +6,34 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import java.util.List;
 import org.openqa.selenium.support.PageFactory;
 
 public class ProductCategoryHomePage extends BasePage {
 
-
+  //There will be only one element possible, but Proxy will throw error if not present
+  // hence making it list to check presence
   @AndroidFindBy(id = "feature_button")
-  MobileElement okGotIt;
+  private List<MobileElement> okGotIt;
 
   @AndroidFindBy(id = "bar_filter_title")
-  MobileElement productFilter;
+  private MobileElement productFilter;
 
   @AndroidFindBy(id = "text_sort_recent")
-  MobileElement byRecent;
+  private MobileElement byRecent;
 
   @AndroidFindBy(id = "button_apply_filter")
-  MobileElement applyFilter;
+  private MobileElement applyFilter;
 
   public ProductCategoryHomePage(AppiumDriver driver) {
     super(driver);
     PageFactory.initElements(new AppiumFieldDecorator(driver), this);
   }
 
-  public void selectFilter(Filters type) {
-    if (okGotIt != null) {
-      okGotIt.click();
+  public ProductCategoryHomePage selectFilter(Filters type) {
+    //if okGotIt exist click otherwise don't
+    if (okGotIt.size() > 0) {
+      okGotIt.get(0).click();
     }
     productFilter.click();
     switch (type) {
@@ -47,6 +50,7 @@ public class ProductCategoryHomePage extends BasePage {
         break;
     }
     applyFilter.click();
+    return this;
   }
 
   public MobileElement getProductByText(String text) {

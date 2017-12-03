@@ -2,11 +2,39 @@ group 'com.pom.appium'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
 
-sourceCompatibility = 1.8
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
 
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/java']
+        }
+        resources {
+            srcDirs = ['src/resources']
+        }
+    }
+    sourceSets {
+        test {
+            java {
+                srcDirs = ['src/test/java']
+            }
+            resources {
+                srcDirs = ['src/test/resources']
+            }
+        }
+    }
+}
+
+ext.cukesVersion = '1.2.5'
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -15,10 +43,39 @@ dependencies {
     compile group: 'org.testng', name: 'testng', version: '6.13'
     compile group: 'com.aventstack', name: 'extentreports', version: '3.1.1'
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
-//    compile group: "org.apache.logging.log4j", name: "log4j-core", version: "2.7"
+    compile group: 'com.beust', name: 'jcommander', version: '1.69'
+    testCompile group: "info.cukes", name: "cucumber-core", version: "$cukesVersion"
+    testCompile group: "info.cukes", name: "cucumber-jvm", version: "$cukesVersion"
+    testCompile group: "info.cukes", name: "cucumber-java8", version: "$cukesVersion"
+//    testCompile group: "info.cukes", name: "cucumber-java", version: "$cukesVersion"
+//    compile group: 'info.cukes', name: 'cucumber-testng', version: '1.2.5'
+//    testCompile group: "info.cukes", name: "cucumber-junit", version: "$cukesVersion"
+
+    compile('info.cukes:cucumber-testng:' + "$cukesVersion") {
+        exclude group: "junit", module: "junit"
+    }
+//    compile "com.beust:jcommander:1.69"
 
 }
 
 test {
+    dependsOn assemble, clean //, compileJava, compileTestJava
     useTestNG()
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testRuntime
+    }
+}
+
+task cucumber() {
+    dependsOn assemble, clean, compileJava, compileTestJava
+    doLast {
+        javaexec {
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'stepdef', 'src/test/resources/features']
+        }
+    }
 }

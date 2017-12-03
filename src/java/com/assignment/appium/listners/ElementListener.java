@@ -1,5 +1,6 @@
 package com.assignment.appium.listners;
 
+import com.assignment.appium.logger.Log;
 import io.appium.java_client.events.api.general.ElementEventListener;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,12 +10,12 @@ public class ElementListener implements ElementEventListener {
   //TODO log4j logs on events
   @Override
   public void beforeClickOn(WebElement element, WebDriver driver) {
-    System.out.println("Clicking on " + element);
+    Log.INFO("Clicking on " + element);
   }
 
   @Override
   public void afterClickOn(WebElement element, WebDriver driver) {
-//    Log.INFO("Clicked on " + element);
+    Log.INFO("Clicked on " + element);
 
   }
 
