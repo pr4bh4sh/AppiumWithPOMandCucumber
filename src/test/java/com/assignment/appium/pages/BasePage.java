@@ -5,10 +5,8 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import java.util.List;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -19,7 +17,8 @@ public class BasePage {
 
   public BasePage(AppiumDriver<MobileElement> driver) {
     this.driver = driver;
-    PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+    //does not need page factory initialiser
+//    PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     //TODO initialize utility
     height = (height == 0) ? driver.manage().window().getSize().height : height;
     width = (width == 0) ? driver.manage().window().getSize().width : width;
@@ -43,6 +42,7 @@ public class BasePage {
    * @param text - exact text
    */
   public MobileElement scrollInsideElementByText(MobileElement element, String text) {
+    //Not relible
     String locator =
         "new UiScrollable(new UiSelector().scrollable(true)).setMaxSearchSwipes(3).scrollIntoView(new UiSelector().text(\""
             + text + "\"))";
@@ -64,7 +64,7 @@ public class BasePage {
   /**
    * Scroll to a direction
    */
-  public void scrollWithTouchAction(String direction, int time) {
+  public void scrollWithTouchAction(ScrollDirection direction, int time) {
     TouchAction touchAction = new TouchAction(driver);
     int startX = width / 2;
     int startY = height - height / 3;

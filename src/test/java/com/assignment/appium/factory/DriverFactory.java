@@ -9,8 +9,10 @@ import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Base64;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
@@ -24,24 +26,26 @@ public class DriverFactory {
   /**
    * @return - Returns driver instance
    */
-  public static AppiumDriver getAndroidDriver() {
+  public static AppiumDriver getAndroidDriver() throws UnsupportedEncodingException {
     if (appiumDriver != null) {
       return appiumDriver;
     } else {
+      byte[] asBytes = Base64.getDecoder().decode("Y29tLnRoZWNhcm91c2VsbC5DYXJvdXNlbGw=");
+      String package_name = new String(asBytes, "utf-8");
       DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
       desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "5.1");
       desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android_device");
       desiredCapabilities.setCapability(MobileCapabilityType.APP,
           new File("").getAbsoluteFile() + File.separator + "app" + File.separator
-              + "Carousell-test-engineering-app.apk");
+              + "test-app.apk");
       desiredCapabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY,
-          "com.thecarousell.Carousell.activities.EntryActivity");
+          package_name + ".activities.EntryActivity");
       desiredCapabilities
-          .setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.thecarousell.Carousell");
+          .setCapability(AndroidMobileCapabilityType.APP_PACKAGE, package_name);
       desiredCapabilities.setCapability(AndroidMobileCapabilityType.NO_SIGN, true);
       desiredCapabilities.setCapability(MobileCapabilityType.NO_RESET, false);
 //            desiredCapabilities.setCapability(MobileCapabilityType.FULL_RESET, true);
-      desiredCapabilities.setCapability("newCommandTimeout", 99999);
+      desiredCapabilities.setCapability("newCommandTimeout", 7200);
       desiredCapabilities.setCapability(AndroidMobileCapabilityType.UNICODE_KEYBOARD, true);
       desiredCapabilities.setCapability(AndroidMobileCapabilityType.RESET_KEYBOARD, true);
       desiredCapabilities
@@ -52,7 +56,7 @@ public class DriverFactory {
         appiumDriver = EventFiringWebDriverFactory
             .getEventFiringWebDriver(appiumDriver, new ElementListener());
         appiumDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        System.out.println(appiumDriver);
+//        System.out.println(appiumDriver);
 
         return appiumDriver;
       } catch (MalformedURLException e) {

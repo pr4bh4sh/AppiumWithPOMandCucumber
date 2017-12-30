@@ -1,8 +1,17 @@
 package com.assignment.appium.commons;
 
-public interface ScrollDirection {
+public enum ScrollDirection {
 
-  String DOWN = "down";
-  String UP = "up";
-
+  DOWN {
+    @Override
+    public String toString() {
+      return "down";
+    }
+  },
+  UP {
+    @Override
+    public String toString() {
+      return "up";
+    }
+  }
 }

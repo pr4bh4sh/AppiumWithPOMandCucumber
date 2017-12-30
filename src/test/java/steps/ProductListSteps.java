@@ -15,6 +15,7 @@ import cucumber.api.java.Before;
 import cucumber.api.java8.En;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import org.junit.Assert;
 import org.openqa.selenium.OutputType;
@@ -36,7 +37,8 @@ public class ProductListSteps implements En {
           homePage = new LoginPage(appiumDriver).loginWithGoogle(userName);
           break;
         default:
-          System.out.println("test");
+          //throw exception
+//          System.out.println("test");
           break;
       }
     });
@@ -45,7 +47,7 @@ public class ProductListSteps implements En {
       homePage = new HomePage(appiumDriver).navigateToSellItem();
     });
 
-    When("^I take a picture of it$", () -> {
+    When("^I take a picture of product$", () -> {
       homePage.takePhotoFromCamera();
       addProductToSellPage = new AddProductToSellPage(appiumDriver).captureImage().acceptImage();
     });
@@ -72,7 +74,7 @@ public class ProductListSteps implements En {
           ProductCategoryHomePage productCategoryHomePage = homePage.openBrowseSection()
               .openProductCategory(category);
           productCategoryHomePage.selectFilter(Filters.RECENT);
-          Assert.assertNotNull(productCategoryHomePage.getProductByText(productName));
+          Assert.assertTrue(productCategoryHomePage.getProductByText(productName).size() != 0);
         });
 
 
@@ -81,7 +83,7 @@ public class ProductListSteps implements En {
   Scenario scenario;
 
   @Before
-  public void before(Scenario scenario) {
+  public void before(Scenario scenario) throws UnsupportedEncodingException {
     this.scenario = scenario;
     appiumDriver = DriverFactory.getAndroidDriver();
     Log.INFO("Starting scenario " + scenario.getName());

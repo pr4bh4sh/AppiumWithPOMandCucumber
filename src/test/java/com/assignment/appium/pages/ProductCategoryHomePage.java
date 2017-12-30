@@ -35,6 +35,8 @@ public class ProductCategoryHomePage extends BasePage {
     if (okGotIt.size() > 0) {
       okGotIt.get(0).click();
     }
+
+    //call find element with the category text
     productFilter.click();
     switch (type) {
       case POPULAR:
@@ -53,8 +55,8 @@ public class ProductCategoryHomePage extends BasePage {
     return this;
   }
 
-  public MobileElement getProductByText(String text) {
+  public List<MobileElement> getProductByText(String text) {
     return driver
-        .findElement(MobileBy.AndroidUIAutomator("new UiSelector().text(\"" + text + "\")"));
+        .findElements(MobileBy.AndroidUIAutomator("new UiSelector().text(\"" + text + "\")"));
   }
 }

@@ -24,6 +24,7 @@ public class LoginPage extends BasePage {
   public HomePage loginWithGoogle(String gmailUserName) {
     gplusSigninButton.click();
     try {
+      //Timeout should be used
       Thread.sleep(2000); //wait for google Sign in popup
     } catch (InterruptedException e) {
       e.printStackTrace();

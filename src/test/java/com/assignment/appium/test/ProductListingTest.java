@@ -40,6 +40,6 @@ public class ProductListingTest {
     ProductCategoryHomePage productCategoryHomePage = homePage.openBrowseSection()
         .openProductCategory("Everything Else");
     productCategoryHomePage.selectFilter(Filters.RECENT);
-    Assert.assertNotNull(productCategoryHomePage.getProductByText("Test"));
+    Assert.assertTrue(productCategoryHomePage.getProductByText("Test").size() != 0);
   }
 }

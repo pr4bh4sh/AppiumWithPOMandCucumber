@@ -12,8 +12,7 @@
 ##### Find the webdriver events logs @ ```reports/Loginfo.log```
 
 ### Note
-- For this project Appium server is started from command line manually. Appium server can be stared programatically from
-`AppiumDriverLocalService`
+- For this project Appium server is started from command line manually. Appium server can be stared programmatically from `AppiumDriverLocalService`
 - Code is written and test using real/physical device.
 - In current implementation ScreenShots are taken only in case of failure.
 - Pages does not have all locator, only the required one to complete the scenario are collected.
