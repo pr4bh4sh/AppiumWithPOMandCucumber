@@ -30,6 +30,7 @@ public class DriverFactory {
     if (appiumDriver != null) {
       return appiumDriver;
     } else {
+      // package name is obfusecated to stop displaying it in github search
       byte[] asBytes = Base64.getDecoder().decode("Y29tLnRoZWNhcm91c2VsbC5DYXJvdXNlbGw=");
       String package_name = new String(asBytes, "utf-8");
       DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
